@@ -1,0 +1,17 @@
+$breakpoints : (xs: "only screen and (max-width:320px)",
+    sm: "only screen and (max-width:400px)",
+    md: "only screen and (max-width:500px)",
+    lg: "only screen and (max-width:768px)"
+) ! default;
+
+@mixin autoResponse($breakpoint) {
+    $query: map-get($breakpoints, $breakpoin);
+
+    @if not &query {
+        @error "No value found for `#{ $breakpoin }`."
+    }
+
+    @media #{ if (type-of($query) == "string", unquote($query), inspect($query))} {
+        @content
+    }
+}
